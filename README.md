@@ -26,4 +26,5 @@ Welcome to the Debaters wiki!
 - Modify：Fix not a bug
 - Clean：Refactoring
 - Remove：Remove any files
+
 ex. Add: Addition of mail sending system.
