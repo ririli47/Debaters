@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+    web-api:
+        container_name: web-api
+        build: ./webserver
+        ports:
+            - "8030:80"
+        volumes:
+            - ../:/var/www
+        environment:
+            - DB_CONNECTION=mysql
+            - DB_HOST=web-api-db
+            - DB_PORT=3306
+            - DB_DATABASE=debatersdb
+            - DB_USERNAME=dbuser
+            - DB_PASSWORD=123
+            - BROADCAST_DRIVER=log
+            - CACHE_DRIVER=array
+            - SESSION_DRIVER=file
+            - QUEUE_DRIVER=database
+            - APP_DEBUG=true
+            - APP_ENV=local
+        depends_on:
+            - web-api-db
+
+    nuxt:
+        container_name: nuxt
+        image: "node:8"
+        user: "node"
+        working_dir: /home/node/app
+        ports:
+            - "8031:3000"
+        volumes:
+            - "../../Debaters-front-end/:/home/node/app"
+            
+    web-api-db:
+        container_name: web-api-db
+        image: mysql:5.7
+        ports:
+            - "5306:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=rootpwd
+            - MYSQL_DATABASE=debatersdb
+            - MYSQL_USER=dbuser
+            - MYSQL_PASSWORD=123
+        volumes:
+            - ./database:/var/lib/mysql
