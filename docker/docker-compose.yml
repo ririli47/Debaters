@@ -33,6 +33,7 @@ services:
             - "8031:3000"
         volumes:
             - "../../Debaters-front-end/:/home/node/app"
+        command: "npm run dev"
             
     web-api-db:
         container_name: web-api-db
